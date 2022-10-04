@@ -1,6 +1,7 @@
 const express = require("express");
-
 const { v4: uuid } = require("uuid");
+const { createRepository } = require("./utils/route-helper")
+const { okNewRepo } = require("./utils/http-helper")
 
 const app = express();
 
@@ -13,19 +14,9 @@ app.get("/repositories", (request, response) => {
 });
 
 app.post("/repositories", (request, response) => {
-  const { title, url, techs } = request.body
+  const repository = createRepository(request, repositories)
 
-  const repository = {
-    id: uuid(),
-    title: title,
-    url: url,
-    techs: techs,
-    likes: 0
-  };
-
-  repositories.push(repository)
-
-  return response.status(201).json(repository);
+  return okNewRepo(response, repository);
 });
 
 app.put("/repositories/:id", (request, response) => {
