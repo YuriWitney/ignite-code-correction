@@ -10,7 +10,7 @@ app.use(express.json());
 const repositories = [];
 
 app.get("/repositories", (request, response) => {
-  return response.json(repositories);
+  return okListRepos(response, repositories);
 });
 
 app.post("/repositories", (request, response) => {
