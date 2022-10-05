@@ -1,7 +1,7 @@
 const express = require("express");
 const { v4: uuid } = require("uuid");
 const { createRepository } = require("./utils/route-helper")
-const { okNewRepo } = require("./utils/http-helper")
+const { okNewRepo, okListRepos } = require("./utils/http-helper")
 
 const app = express();
 
@@ -21,7 +21,8 @@ app.post("/repositories", (request, response) => {
 
 app.put("/repositories/:id", (request, response) => {
   const { id } = request.params;
-  const updatedRepository = request.body;
+  const { title, url, techs } = request.body;
+  const updatedRepository = { title, url, techs }
 
   repositoryIndex = repositories.findIndex(repository => repository.id === id);
 
